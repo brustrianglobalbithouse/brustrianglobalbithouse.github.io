@@ -1,0 +1,97 @@
+.texto-card{
+    width: 660px;
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid var(--color-button);
+    box-shadow: 0px 10px var(--color-button);
+    color: #666666;
+    font-size: 29px;
+}
+
+.goodAnswer.round-num{
+    border: 2px solid var(--trueColor) !important;
+}
+.goodAnswer .t-number{
+    color: var(--trueColor) !important;
+}
+.badAnswer.round-num{
+    border: 2px solid var(--falseColor) !important;
+}
+.badAnswer .t-number{
+    color: var(--falseColor) !important;
+}
+
+.goodAnswer{
+    border: 4px solid var(--trueColor) !important;
+    box-shadow: 0px 0px 0px;
+    position: relative;
+}
+
+.goodAnswer::before{
+    content: url('../images/icon-ok.svg');
+    background-color: var(--trueColor);
+    border: 4px solid white;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -25px;
+    top: -25px;
+}
+
+.badAnswer{
+    border: 4px solid var(--falseColor) !important;
+    box-shadow: 0px 0px 0px;
+    position: relative;
+}
+
+.badAnswer::before{
+    content: url('../images/icon-bad.svg');
+    background-color: var(--falseColor);
+    border: 4px solid white;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -25px;
+    top: -25px;
+}
+
+
+.crucigrama-container{
+    width: 813px;
+    height: 799px;
+    border-radius: 10px;
+    padding: 20px;
+    border: 8px solid var(--color-bg-final);
+}
+
+/* DIV de cada letra */
+/*
+.letter-tile{
+    background-color: red;
+}
+*/
+
+/* SVG, la letra */
+/*
+.letter-tile svg{
+    font-family: var(--f1);
+    font-weight: 500;
+    fill: #808080;
+}
+*/
+
+/* DIV presionado (click sostenido) de cada letra */
+/*
+.letter-tile-highlighted{
+    background-color: #00aef2;
+}
+*/
+
+/* DIV seleccionado (palabra seleccionada) */
+/*
+.letter-tile-selected{
+    background-color: #00aef2;
+}
+*/

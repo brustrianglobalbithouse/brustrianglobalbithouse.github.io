@@ -1,0 +1,290 @@
+/* ESTILOS QUINTO GRADO */
+
+.logo-header{
+  /* logo de header */
+}
+
+.font-titulo {
+  /* titulo de header */  
+}
+
+.sound-btn{
+  /* botón de sonido de header */
+}
+
+.sound-btn svg{
+  /* ícono de botón de sonido de header */
+}
+
+.fullscreen-btn{
+  /* botón de pantalla completa header */
+}
+
+.fullscreen-btn svg{
+  /* ícono de botón de pantalla completa header */
+}
+
+.check-bar{
+  /* Barra de botones de comprobar e intentos */
+}
+
+.content-attempts{
+  /* Posiciones flex del contenedor de intentos */
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; */
+}
+
+.content-attempts h1{
+  /* Tamaño de fuente de los intentos */
+  /* font-size: 20px !important; */
+  font-weight: 600 !important;
+}
+
+.attempt-off{
+  /* div de intento faltante */  
+}
+.attempt-on{
+  /* div de intento agotado */
+}
+
+.circulo-intento {
+  /*div de intento*/
+}
+
+.connect {
+  /* Barra de conexión botones de comprobar */
+  /* width: 25px;
+  height: 4px; */
+}
+
+.connect-left-right {
+  /* barra de conexión botón siguiente */
+  /* min-width: 15px; */
+}
+
+.btn-game-act {
+  /*botones de navegación y usabilidad, excepto botón de comprobar*/
+  min-height: 42px !important;
+  min-width: 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 15px !important;
+  border: 3px solid #d7d7d7 !important;
+}
+
+.btn-game-act .v-ripple__container{
+  /*Transición de clic en botón, se debe adaptar el radius*/
+  border-radius:12px !important;
+}
+
+.btn-game-act::before{
+  /*Transición de clic en botón, se debe adaptar el radius*/
+  border-radius: 12px !important;
+}
+
+.btn-game-act svg{
+  /*tamaño de íconos de botones de navegación y usabilidad, excepto botón de comprobar*/
+  width: 22px !important;
+}
+
+.btn-game-check{
+  /*Botón de comprobar*/
+  border-radius: 10px !important;
+  min-height: 55px !important;
+  min-width: 250px !important;
+}
+
+.btn-game-check svg{
+  /*Ícono de botón de comprobar*/
+}
+
+.btn-game-check h2{
+  /*Fuente dentro del botón comprobar*/
+  font-size: 24px !important;
+  font-weight: 600 !important;
+}
+
+.btn-game-true{
+  /*Botón de comprobar correcto*/
+  border-radius: 10px !important;
+  min-height: 55px !important;
+  min-width: 250px !important;
+  
+  border: 2px solid #1cc423;
+  
+  box-shadow: 0px 8px #1cc423 !important;
+}
+
+.btn-game-true:hover{
+  /*Hover de Botón de comprobar correcto*/
+  transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+  box-shadow: 0px 4px #1cc423 !important;
+}
+
+.btn-game-true h2{
+  /*Fuente dentro del botón correcto*/
+  font-size: 24px !important;
+  color: #1cc423 !important;
+  font-weight: 600 !important;
+}
+
+
+.btn-game-false{
+  /*Botón de comprobar incorrecto*/
+  border-radius: 10px !important;
+  min-height: 55px !important;
+  min-width: 250px !important;
+
+  border: 2px solid #e55151;
+
+  box-shadow: 0px 8px #e55151 !important;
+}
+
+.btn-game-false:hover{
+  /*Hover de Botón de comprobar incorrecto*/
+  transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+  box-shadow: 0px 4px #e55151 !important;
+}
+
+.btn-game-false h2{
+  /*Fuente dentro del botón incorrecto*/
+  font-size: 24px !important;
+  color: #e55151 !important;
+  font-weight: 600 !important;
+}
+
+.content-btn-check{
+  /*Disposición flex dentro del botón comprobar*/
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row; */
+}
+
+.check-icon{
+  /*ïcono del botón check*/
+  height: 30px;
+}
+
+.check-bad-icon{
+  /*ïcono del botón check incorrecto*/
+  height: 30px;
+}
+
+.check-green{
+  /*ïcono del botón check correcto*/
+  fill:#1cc423;
+}
+.check-red{
+  /*ïcono del botón check incorrecto*/
+  fill:#e55151;
+}
+
+.final-box {
+  /*Cuadro de RESUMEN de la pantalla final*/
+  position: relative;
+  width: 900px;
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 10px;
+  background-color: white;
+  padding: 40px 60px;
+}
+
+.final-box h1{
+  /* Título del cuadro de RESUMEN de la pantalla final */
+  font-size: 33px;
+  font-weight: bold;
+}
+
+.final-box h2{
+  /*Número de intentos en el cuadro de resumen*/
+  font-size: 29px;
+  height: 50px;
+  align-self: flex-end;
+}
+
+.final-box .btn-final, .final-box-2 .btn-final{
+  /*Botón de regresar de la pantalla final*/
+  border-radius: 10px !important;
+  border-style: solid !important;
+  border-width: 4px !important;
+
+  min-height: 62px !important;
+  min-width: 72px !important;
+  width: 72px !important;
+  height: 62px !important;
+}
+
+.btn-final .v-ripple__container{
+  /*Transición de clic en botón, se debe adaptar el radius*/
+  border-radius: 6px !important;
+}
+
+.btn-final::before{
+  /*Transición de clic en botón, se debe adaptar el radius*/
+  border-radius:  6px !important;
+}
+
+.final-box .circulo-intento {
+  /* Circulo de intentos en cuadro final de resumen */
+  width: 40px;
+  height: 40px;
+}
+
+.final-box-stars{  
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 10px;
+}
+
+.final-box-stars h1{
+  /* Título del cuadro de LOGROS de la pantalla final */
+  font-size: 33px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/*Cuadro de resultado para primaria alta*/
+.final-box-2{}
+.final-box-2 h1{}
+.final-box-2 .total-box{}
+.final-box-2 .total-box .fb1{}
+.final-box-2 .total-box .fb2{}
+.final-box-2 .total-box .fb3{}
+
+
+/*Sobreescribe las variables en root de las tipografías*/
+:root {
+--f1:'Omnes';
+--f2:'Omnes';
+--trueColor: #1cc423;
+--falseColor: #e55151;
+--orden: 33px;
+--text: 29px;
+--radius: 10px;
+--box-min-h: 50px;
+--box-min-w: 220px;
+}
+
+/*Se configura el peso de tipografias*/
+.font1{
+  font-weight: 500;
+}
+
+.font2{
+  font-weight: 500;
+}
+
+.b-radius{
+  border-radius: var(--radius) !important;
+}
+
+.btn-sound{
+  border-radius: var(--radius) !important;
+}
+
