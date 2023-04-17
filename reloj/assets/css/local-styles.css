@@ -1,0 +1,45 @@
+.relative{
+    position: relative !important;
+}
+.absolute{
+    position: absolute !important;
+}
+
+.subtitulo{
+    font-size: 42px;
+    color: #666;
+    line-height: 48px;
+}
+
+.toggle-circle{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 6px solid #373737;
+    background-color: #c1272d;
+}
+.toggle-circle-minuto{
+    background-color: #39b54a;
+}
+.texto-toggle{
+    font-size: 34px;
+    color: #666;
+}
+
+.ok-container::before{
+    content: url('../images/icon-ok.svg');
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.bad-container::before{
+    content: url('../images/icon-bad.svg');
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}

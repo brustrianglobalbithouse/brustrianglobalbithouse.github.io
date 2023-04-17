@@ -1,0 +1,71 @@
+.drop {
+    background-color: #f4f4f4 !important;
+    border-radius: 20px !important;
+    
+    width: 74px !important;
+    height: 62px !important;
+  
+    box-shadow: 0px -8px #e6e6e6 !important;
+}
+
+.drag{
+    background-color: var(--color-bg-final) !important;
+    border-radius: 20px !important;
+    
+    width: 74px !important;
+    height: 62px !important;
+    border: 6px solid transparent;
+  
+    box-shadow: 0px 8px var(--color-shadow) !important;
+    cursor: pointer;
+}
+
+.drop .drag{
+    margin-top: -8px;
+}
+
+.drag h1{
+    font-size: 42px;
+    color:#666666;
+}
+
+.bad-drag{
+    border: 4px solid var(--falseColor);
+    box-shadow: 0px 0px transparent !important;
+    position: relative;
+}
+
+.ok-drag{
+    border: 4px solid var(--trueColor);
+    box-shadow: 0px 0px transparent !important;
+    position: relative;
+}
+
+.ok-drag::before{
+    content: url('../images/icon-ok.svg');
+    background-color: var(--trueColor);
+    border: 4px solid white;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -25px;
+    top: -25px;
+}
+
+.bad-drag::before{
+    content: url('../images/icon-bad.svg');
+    background-color: var(--falseColor);
+    border: 4px solid white;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -25px;
+    top: -25px;
+}
+
+.sub1{
+    font-size: 42px;
+    color: #666666;
+}

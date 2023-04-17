@@ -1,0 +1,51 @@
+.flipbook {
+    width: 1457px;
+    height: 874px;
+    margin-top: -15px;
+    margin-right: 5px;
+}
+.flipbook-button{
+    position: absolute;
+    top: 400px;
+}
+.flipbook-button-left{
+    left: -100px;
+}
+.flipbook-button-right{
+    right: -100px;
+}
+
+.bg-book{
+    position: absolute;
+    width: 1530px;
+    left: 0;
+    top: 0;
+}
+
+.btn-fullscreen{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-audio{
+    position: absolute;
+    z-index: 100;
+    bottom: 135px;
+}
+
+.btn-audio-left{
+    left: 544px;
+}
+.btn-stop-left{
+    left: 588px;
+}
+.btn-audio-right{
+    right: 588px;
+}
+.btn-stop-right{
+    right: 544px;
+}

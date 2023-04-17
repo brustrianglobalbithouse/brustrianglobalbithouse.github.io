@@ -1,0 +1,22 @@
+@charset "UTF-8";
+@import url("../fonts/stylesheet.css");
+
+:root {
+    --button-color: #ef3f7f;
+    --button-shadow-color: #c43065;
+    --subtitle-color: #a82756;
+    --header-color: #e5336a;
+    --bullet-color: #ef3f7f;
+  
+    --head: #e5336a;
+    --button: #e8b577;
+    --orden: #a82756;
+    --shadow: #cc9a62;
+    --bg-final: #fae4e9;
+  
+    --f1:'Omnes';
+    --f2:'Santillana2017Bold';
+  
+    --header-height: 108px;
+    --bottom-height: 170px;
+  }

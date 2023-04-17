@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Santillana2017Bold';
+    src: url('Santillana2017Bold-Bold.eot');
+    src: url('Santillana2017Bold-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Santillana2017Bold-Bold.woff2') format('woff2'),
+        url('Santillana2017Bold-Bold.woff') format('woff'),
+        url('Santillana2017Bold-Bold.ttf') format('truetype'),
+        url('Santillana2017Bold-Bold.svg#Santillana2017Bold-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Omnes';
+    src: url('Omnes-Semibold.eot');
+    src: url('Omnes-Semibold.eot?#iefix') format('embedded-opentype'),
+        url('Omnes-Semibold.woff2') format('woff2'),
+        url('Omnes-Semibold.woff') format('woff'),
+        url('Omnes-Semibold.ttf') format('truetype'),
+        url('Omnes-Semibold.svg#Omnes-Semibold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Omnes';
+    src: url('Omnes-Medium.eot');
+    src: url('Omnes-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Omnes-Medium.woff2') format('woff2'),
+        url('Omnes-Medium.woff') format('woff'),
+        url('Omnes-Medium.ttf') format('truetype'),
+        url('Omnes-Medium.svg#Omnes-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: 'Fredoka One';
+    src: url('FredokaOne-Regular.eot');
+    src: url('FredokaOne-Regular.eot?#iefix') format('embedded-opentype'),
+        url('FredokaOne-Regular.woff2') format('woff2'),
+        url('FredokaOne-Regular.woff') format('woff'),
+        url('FredokaOne-Regular.ttf') format('truetype'),
+        url('FredokaOne-Regular.svg#FredokaOne-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

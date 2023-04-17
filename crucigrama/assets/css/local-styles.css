@@ -1,0 +1,123 @@
+.round-num {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    min-height: 45px;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.t-number {
+    font-size: 32px;
+}
+
+.goodAnswer.round-num{
+    border: 2px solid var(--trueColor) !important;
+}
+.goodAnswer .t-number{
+    color: var(--trueColor) !important;
+}
+.badAnswer.round-num{
+    border: 2px solid var(--falseColor) !important;
+}
+.badAnswer .t-number{
+    color: var(--falseColor) !important;
+}
+
+.crucigrama-container{
+    width: 934px;
+    height: 891px;
+    border-radius: 20px;
+    background-color: var(--color-bg-final);
+    padding: 76px 36px 20px 102px;
+}
+
+.crucigrama-round-num[data-number="5"] h1{
+    margin-top: 6px !important;
+}
+.crucigrama-round-num[data-number="1"] h1{
+    margin-right: 4px;
+}
+
+.okNumberClass[data-number="1"]::before, .okNumberClass[data-number="4"]::before, .okNumberClass[data-number="5"]::before{
+        content: url('../images/icon-ok.svg');
+    background-color: var(--trueColor);
+    border: 4px solid white;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 10px;
+    top: -40px;
+}
+
+.okNumberClass[data-number="3"]::before, .okNumberClass[data-number="2"]::before{
+        content: url('../images/icon-ok.svg');
+    background-color: var(--trueColor);
+    border: 4px solid white;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -40px;
+    top: 10px;
+}
+
+.badNumberClass[data-number="1"]::before, .badNumberClass[data-number="4"]::before, .badNumberClass[data-number="5"]::before{
+    content: url('../images/icon-bad.svg');
+    background-color: var(--falseColor);
+    border: 4px solid white;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 10px;
+    top: -40px;
+}
+
+.badNumberClass[data-number="3"]::before, .badNumberClass[data-number="2"]::before{
+    content: url('../images/icon-bad.svg');
+    background-color: var(--falseColor);
+    border: 4px solid white;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -40px;
+    top: 10px;
+}
+
+
+
+/*.crucigrama-input{
+    font-family: var(--f2);
+    color: #808080;
+    font-size: 45px;
+    background-color: white;
+    border-radius: 6px;
+    padding-top: 4px;
+}*/
+
+/*.crucigrama-round-num {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    min-height: 45px;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}*/
+
+/*
+.cell-tile{
+    margin: 5px;
+}
+*/

@@ -1,0 +1,40 @@
+@charset "UTF-8";
+@import url("../fonts/stylesheet.css");
+
+:root {
+  --button-color: #ef3f7f;
+  --button-shadow-color: #c43065;
+  --subtitle-color: #a82756;
+  --header-color: #e5336a;
+  --bullet-color: #ef3f7f;
+
+  --lengua-head: #e5336a;
+  --lengua-button: #e5336a;
+  --lengua-orden: #a82756;
+  --lengua-shadow: #c43065;
+  --lengua-bg-final: #fae4e9;
+
+  --naturales-head: #4ec451;
+  --naturales-button: #4ec451;
+  --naturales-orden: #52866f;
+  --naturales-shadow: #3c993c;
+  --naturales-bg-final: #d7f4d7;
+
+  --matematicas-head: #25c1df;
+  --matematicas-button: #2ed3f3;
+  --matematicas-orden: #06859f;
+  --matematicas-shadow: #25c1df;
+  --matematicas-bg-final: #dcf9f7;
+
+  --sociales-head: #9991f5;
+  --sociales-button: #9991f5;
+  --sociales-orden: #716abb;
+  --sociales-shadow: #6060a8;
+  --sociales-bg-final: #f3f3ff;
+
+  --f1:'Omnes';
+  --f2:'Santillana2017Bold';
+
+  --header-height: 108px;
+  --bottom-height: 170px;
+}

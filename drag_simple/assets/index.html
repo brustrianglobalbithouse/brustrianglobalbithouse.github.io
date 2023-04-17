@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="Drag-simple_v3.js"></script>
+  <link href="css/vuetify.min.css" rel="stylesheet">
+  <link href="css/animate-css.css" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="css/root.css">
+  <link rel="stylesheet" href="css/global-styles.css">
+  <link rel="stylesheet" href="css/local-styles.css">
+  <link rel="stylesheet" href="css/click.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body class="smooth-dnd-no-user-select smooth-dnd-disable-touch-action ready sticky">
+  <div class="preload" id="preload">
+    <div class="preloader loading">
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+    </div>
+  </div>
+  
+  <div id="app" class="appParent">
+    <v-app>
+      <header-nav :layer="layer" :layers="layers" :controller="layersController" :disabled-button="isDisabled" :mostrar-pantalla-final="mostrarPantallaFinal" @change-layer="layer = $event, clickSound()" @call-restart="restartStatus()" @change-estado="changeStatus()" @call-solucion="showSolucion()">
+        <v-window class="window-container" v-model="layer" style="width: 100%" :touchless="true">
+
+          <v-window-item eager>
+
+            <v-row>
+              <v-col cols="12">
+                <h1 class="font2 color-orden pt-10 text-center" style="font-size: 50px;">
+                  {{orden1}}
+                </h1>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="12" class="d-flex align-center justify-center mt-8">
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG1 -->
+                  <drag-container v-model="layer0_drop1" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop1.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG1 -->
+                </div>
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG2 -->
+                  <drag-container v-model="layer0_drop2" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop2.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG2 -->
+                </div>
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG3 -->
+                  <drag-container v-model="layer0_drop3" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop3.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG3 -->
+                </div>
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG4 -->
+                  <drag-container v-model="layer0_drop4" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop4.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG4 -->
+                </div>
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG5 -->
+                  <drag-container v-model="layer0_drop5" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop5.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG5 -->
+                </div>
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG6 -->
+                  <drag-container v-model="layer0_drop6" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop6.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG6 -->
+                </div>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="6" class="d-flex align-end justify-center flex-row mt-8"> 
+                <!-- ELEMENTO 1 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4">
+                  <drag-container v-model="layer0_drop7" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop7.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 7), 'bad-drag' : isBad(item.id, 7)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 1 DRAG -->
+                <!-- ELEMENTO 2 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4">
+                  <drag-container v-model="layer0_drop8" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop8.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 8), 'bad-drag' : isBad(item.id, 8)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 2 DRAG -->
+                <!-- ELEMENTO 2 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4">
+                  <drag-container v-model="layer0_drop9" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop9.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 9), 'bad-drag' : isBad(item.id, 9)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 2 DRAG -->
+              </v-col>
+              <v-col cols="6" class="d-flex align-end justify-center flex-row mt-8"> 
+                <!-- ELEMENTO 3 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4">
+                  <drag-container v-model="layer0_drop10" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop10.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 10), 'bad-drag' : isBad(item.id, 10)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 3 DRAG -->
+                <!-- ELEMENTO 4 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4">
+                  <drag-container v-model="layer0_drop11" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop11.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 11), 'bad-drag' : isBad(item.id, 11)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 4 DRAG -->
+                <!-- ELEMENTO 4 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4 mt-16">
+                  <drag-container v-model="layer0_drop12" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer0_drop12.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 12), 'bad-drag' : isBad(item.id, 12)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 4 DRAG -->
+              </v-col>
+              <v-col cols="6" class="d-flex align-end justify-center flex-row mt-2"> 
+                <h1 class="font2 color-text-2 text-center" style="font-size: 40px;">
+                  {{sentence1}}
+                </h1>
+              </v-col>
+              <v-col cols="6" class="d-flex align-end justify-center flex-row mt-2"> 
+                <h1 class="font2 color-text-2 text-center" style="font-size: 40px;">
+                  {{sentence2}}
+                </h1>
+              </v-col>
+            </v-row>
+
+          </v-window-item>
+
+          <v-window-item eager>
+
+            <v-row>
+              <v-col cols="12">
+                <h1 class="font2 color-orden pt-10 text-center" style="font-size: 50px;">
+                  {{orden2}}
+                </h1>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="12" class="d-flex align-center justify-center mt-6">
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG1 -->
+                  <drag-container v-model="layer1_drop1" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop1.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG1 -->
+                </div>
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG2 -->
+                  <drag-container v-model="layer1_drop2" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop2.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG2 -->
+                </div>
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG3 -->
+                  <drag-container v-model="layer1_drop3" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop3.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG3 -->
+                </div>
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG4 -->
+                  <drag-container v-model="layer1_drop4" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop4.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG4 -->
+                </div>
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG5 -->
+                  <drag-container v-model="layer1_drop5" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop5.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG5 -->
+                </div>
+                <div class="d-flex justify-center align-center flex-column mx-5">
+                  <!-- DRAG6 -->
+                  <drag-container v-model="layer1_drop6" class="d-flex align-center justify-center" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop6.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" >
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                  <!-- DRAG6 -->
+                </div>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="6" class="d-flex align-end justify-center flex-row mt-8"> 
+                <!-- ELEMENTO 1 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4">
+                  <drag-container v-model="layer1_drop7" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop7.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 7), 'bad-drag' : isBad(item.id, 7)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 1 DRAG -->
+                <!-- ELEMENTO 2 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4">
+                  <drag-container v-model="layer1_drop8" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop8.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 8), 'bad-drag' : isBad(item.id, 8)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 2 DRAG -->
+                <!-- ELEMENTO 2 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4">
+                  <drag-container v-model="layer1_drop9" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop9.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 9), 'bad-drag' : isBad(item.id, 9)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 2 DRAG -->
+              </v-col>
+              <v-col cols="6" class="d-flex align-end justify-center flex-row mt-8"> 
+                <!-- ELEMENTO 3 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4">
+                  <drag-container v-model="layer1_drop10" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop10.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 10), 'bad-drag' : isBad(item.id, 10)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 3 DRAG -->
+                <!-- ELEMENTO 4 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4">
+                  <drag-container v-model="layer1_drop11" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop11.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 11), 'bad-drag' : isBad(item.id, 11)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 4 DRAG -->
+                <!-- ELEMENTO 4 DRAG -->
+                <div class="d-flex flex-column justify-center align-center mx-4  mt-16">
+                  <drag-container v-model="layer1_drop12" class="drop" style="width: 244px; height: 205px;">
+                    <draggable v-for="item in layer1_drop12.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag border-item relative d-flex justify-center align-center" :class="{'ok-drag' : isOk(item.id, 12), 'bad-drag' : isBad(item.id, 12)}">
+                        <img :src="item.src" alt="">
+                      </div>
+                    </draggable>
+                  </drag-container>
+                </div>
+                <!-- ELEMENTO 4 DRAG -->
+              </v-col>
+              <v-col cols="6" class="d-flex align-end justify-center flex-row mt-2"> 
+                <h1 class="font2 color-text-2 text-center" style="font-size: 40px;">
+                  {{sentence3}}
+                </h1>
+              </v-col>
+              <v-col cols="6" class="d-flex align-end justify-center flex-row mt-2"> 
+                <h1 class="font2 color-text-2 text-center" style="font-size: 40px;">
+                  {{sentence4}}
+                </h1>
+              </v-col>
+            </v-row>
+
+          </v-window-item>
+
+          <!--audio-lineal v-model="audios.audio1" class="audiobox1" color="#9991f5" horizontal="left" vertical="bottom" @stop="stopAudios"></audio-lineal>
+          <audio-lineal v-model="audios.audio2" color="#9991f5" horizontal="right" vertical="bottom" @stop="stopAudios"></audio-lineal>
+          <audio-lineal v-model="audios.audio3" color="#9991f5" @stop="stopAudios"></audio-lineal-->
+          <!--audio-lineal-principal v-model="audioPrincipal" class="audiobox-principal" color="#9991f5" width="1700px" track-color="#6060a8" text-class="audiobox-text" horizontal="right" vertical="center" @stop="stopAudios" :hide-controller="{layer, layersController, mostrarPantallaFinal}"></audio-lineal-principal-->
+   
+          <!-- tipo: primaria-baja / primaria-alta -->
+          <pantalla-final :controller="layersController" tipo="primaria-baja" @return="layer -= 1"></pantalla-final>
+
+        </v-window>
+      </header-nav>
+    </v-app>
+  </div>
+
+  <script src="js/vue.min.js"></script>
+  <script src="js/vuetify.js"></script>
+  <script src="js/smooth-dnd.min.js"></script>
+  <script src="js/vue-smooth-dnd.min.js"></script>
+  
+  <script src="js/createjs.min.js"></script>
+  
+  <script src="mixins/mixins.js"></script>
+  <script src="mixins/config.js"></script>
+  <script src="mixins/TextosGlobales.js"></script>
+
+  <script src="components/HeaderNav.js"></script>
+  <script src="components/DragContainer.js"></script>
+  <script src="components/PantallaFinal.js"></script>
+  <script src="components/AudioLineal.js"></script>
+  <script src="components/AudioLinealPrincipal.js"></script>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      mixins: [mixins, Config, TextosGlobales],
+      components: {
+        'header-nav': HeaderNav,
+        'drag-container': DragContainer,
+        'draggable': VueSmoothDnd.Draggable,
+        'pantalla-final': PantallaFinal,
+        'audio-lineal': AudioLineal,
+        'audio-lineal-principal': AudioLinealPrincipal
+      },
+      created(){
+        //createjs.Sound.registerSound("audios/clic.mp3", "clic")
+      },
+      /*methods: {
+        layer0_restart(){
+          console.log("después de reset - layer 0")
+        },
+        layer0_comprobado(correcto){
+          console.log("después de comprobar - layer 0")
+          console.log("El resultado fue: " + (correcto ? 'ACIERTO' : 'FALLO'))
+        },
+        layer0_solucion(solucion_mostrada){
+          console.log("después de clic en solución - layer 0")
+          console.log("Solución: " + (solucion_mostrada ? 'MOSTRADA' : 'OCULTA'))
+        }
+      },*/
+      data: {
+
+        // Utilizar true si se necesita poner pausa al audio principal cada vez que se cambie la pantalla
+        /*stopAudioPrincipal: true,
+        audioPrincipal: {
+          ruta: "audios/audio2.mp3",
+          id_audio: "audio0",
+          valor: null
+        },
+
+        audios: {
+          audio1: {
+            ruta: "audios/audio2.mp3",
+            id_audio: "audio1",
+            valor: null
+          },
+          audio2: {
+            ruta: "audios/audio3.mp3",
+            id_audio: "audio2",
+            valor: null
+          }
+        },*/
+
+        layers: 2,
+
+        //Mínimo 1 - Máximo 3
+        intentosLayers: 2,
+
+        bloquearComprobar: true,
+        // bloquearLayers: [0],
+
+        infoLayers: [],
+
+        mostrarPantallaFinal: true,
+
+        // PANEL1
+        layer0_drop1: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 0, respuesta: [7,8,9], src:'images/img1.png'}],
+          acepta: [0],
+          cantidad: 1
+        },
+        layer0_drop2: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 1, respuesta: [7, 8, 9], src:'images/img2.png'}],
+          acepta: [1],
+          cantidad: 1
+        },
+        layer0_drop3: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 2, respuesta: [10, 11, 12], src:'images/img3.png'},],
+          acepta: [2],
+          cantidad: 1
+        },
+        layer0_drop4: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 3, respuesta: [7, 8, 9], src:'images/img4.png'}],
+          acepta: [3],
+          cantidad: 1
+        },
+        layer0_drop5: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 4, respuesta: [10, 11, 12], src:'images/img5.png'}],
+          acepta: [4],
+          cantidad: 1
+        },
+        layer0_drop6: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 5, respuesta: [10, 11, 12], src:'images/img6.png'}],
+          acepta: [5],
+          cantidad: 1
+        },
+        layer0_drop7: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop8: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop9: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1, 	
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop10: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop11: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop12: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        // PANEL1
+       // PANEL2
+       layer1_drop1: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 0, respuesta: [10, 11, 12], src:'images/img7.png'}],
+          acepta: [0],
+          cantidad: 1
+        },
+        layer1_drop2: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 1, respuesta: [10, 11, 12], src:'images/img8.png'}],
+          acepta: [1],
+          cantidad: 1
+        },
+        layer1_drop3: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 2, respuesta: [7, 8, 9], src:'images/img9.png'},],
+          acepta: [2],
+          cantidad: 1
+        },
+        layer1_drop4: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 3, respuesta: [7, 8, 9], src:'images/img10.png'}],
+          acepta: [3],
+          cantidad: 1
+        },
+        layer1_drop5: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 4, respuesta: [7, 8, 9], src:'images/img11.png'}],
+          acepta: [4],
+          cantidad: 1
+        },
+        layer1_drop6: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: false,
+          items: [{id: 5, respuesta: [10, 11, 12], src:'images/img12.png'}],
+          acepta: [5],
+          cantidad: 1
+        },
+        layer1_drop7: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop8: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop9: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop10: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop11: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop12: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          animarDrop: true,
+          items: [],
+          cantidad: 1,
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        // PANEL2
+
+      }
+    })
+  </script>
+</body>
+</html>

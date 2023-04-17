@@ -1,0 +1,25 @@
+@charset "UTF-8";
+@import url("../fonts/stylesheet.css");
+
+:root {
+  --bg-color: #ffe9f3;
+  --bg-color-2: #fff8fc;
+  --instrucciones-color: #a82756;
+  --button-color: #ff8600;
+  --button-color-2: #fff3ee;
+  --button-shadow-color: #c7701c;
+
+  --button-color-ok: #13e288;
+  --button-shadow-color-ok: #0fbc6e;
+
+  --button-color-bad: #e5336a;
+  --button-shadow-color-bad: #b22859;
+
+  --button-color-bad-2: #ff6997;
+  --button-shadow-color-bad-2: #ff3a70;
+
+  --texto-color: #b3b3b3;
+
+  --f1:'Omnes';
+  --f2:'Santillana2017Bold';
+}

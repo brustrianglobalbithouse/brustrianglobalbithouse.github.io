@@ -1,0 +1,127 @@
+.drop{
+    background-color: #f4f4f4 !important;
+    border-radius: 20px !important;
+    
+    /* width: 244px !important;
+    height: 197px !important; */
+
+    /* max-width: 244px !important;
+    max-height: 197px !important;
+
+    min-width: 244px !important;
+    min-height: 197px !important; */
+  
+    box-shadow: 0px -8px #e6e6e6 !important;
+}
+
+.drag{
+    background-color: #f4f4f4 !important;
+    border-radius: 20px !important;
+
+    box-shadow: 0px 8px #b3b3b3 !important;
+    cursor: pointer;
+}
+
+.drop .drag{
+    margin-top: -8px;
+}
+
+.drag h1{
+    font-size: 42px;
+}
+
+.drag img{
+    -moz-user-select: none; 
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none; 
+}
+
+.border-item{
+    border: 4px solid transparent;
+}
+
+.bad-drag{
+    border: 4px solid var(--falseColor);
+    box-shadow: 0px 0px transparent !important;
+    box-sizing: content-box !important;
+    position: relative;
+    padding-top: 8px;
+    border-radius: 19px;
+    transform: translate(0px, -8px);
+    
+}
+
+.bad-drag::before{
+    content: url('../images/icon-bad.svg');
+    background-color: var(--falseColor);
+    border: 4px solid white;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -25px;
+    top: -25px;
+}
+
+.ok-drag{
+    border: 4px solid var(--trueColor);
+    box-shadow: 0px 0px transparent !important;
+    box-sizing: content-box !important;
+    position: relative;
+    padding-top: 8px;
+    border-radius: 19px;
+    transform: translate(0px, -8px);
+}
+
+.ok-drag::before{
+    content: url('../images/icon-ok.svg');
+    background-color: var(--trueColor);
+    border: 4px solid white;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -25px;
+    top: -25px;
+}
+
+.ok-drag .drag{
+    box-shadow: 0px 0px transparent !important; 
+}
+
+.bad-drag .drag{
+    box-shadow: 0px 0px transparent !important; 
+}
+
+.relative{
+    position: relative;
+}
+
+.absolute{
+    position: absolute;
+}
+
+.legend{
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    padding: 8px 10px 5px 10px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.7);
+    font-size: 17px !important;
+    line-height: 10px;
+    color: #666666;
+}
+
+.color-text-1{
+    color: #666666;
+}
+
+.color-text-2{
+    color: #666666;
+}
+
+.smooth-dnd-container.horizontal {
+    display: block !important;
+}

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="Drag-clon_v3.js"></script>
+  <link href="css/vuetify.min.css" rel="stylesheet">
+  <link href="css/animate-css.css" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="css/root.css">
+  <link rel="stylesheet" href="css/global-styles.css">
+  <link rel="stylesheet" href="css/local-styles.css">
+  <link rel="stylesheet" href="css/click.css"> 
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body class="smooth-dnd-no-user-select smooth-dnd-disable-touch-action ready sticky">
+  
+  <div class="preload" id="preload">
+    <div class="preloader loading">
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+    </div>
+  </div>
+  
+  <div id="app" class="appParent">
+    <v-app>
+      <header-nav :layer="layer" :layers="layers" :controller="layersController" :disabled-button="isDisabled" :mostrar-pantalla-final="mostrarPantallaFinal" @change-layer="layer = $event, clickSound()" @call-restart="restartStatus()" @change-estado="changeStatus()" @call-solucion="showSolucion()">
+        <v-window class="window-container" v-model="layer" style="width: 100%" :touchless="true">
+
+          <!-- PANEL1 -->
+          <v-window-item eager>
+            <v-container fluid>
+              <v-row>
+                <v-col cols="12">
+                  <h1 class="font2 color-orden py-10 text-center" style="font-size: var(--orden);">
+                    {{orden1}}
+                  </h1>
+                </v-col>
+              </v-row>
+
+              <div class="d-flex justify-center align-center mt-8">
+                <img src="images/stage.png" style="margin-right: 114px; margin-left: 100px;">
+                <div class="d-flex flex-column align-center">
+                  <div class="d-flex mt-10" style="margin-bottom: 125px; margin-left: 100px;">
+                    <div class="d-flex flex-column" style="width: 320px;">
+                      <div class="d-flex align-center" style="margin-bottom: 116px;">
+                        <drag-container v-model="layer0_drop1" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer0_drop1.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 1), 'bad-drag' : isBad(item, index, 1)}"><h1 class="font2">{{pastillas_pantalla1[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer0_texto1}}</p>
+                      </div>
+                      <div class="d-flex align-center">
+                        <drag-container v-model="layer0_drop2" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer0_drop2.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 2), 'bad-drag' : isBad(item, index, 2)}"><h1 class="font2">{{pastillas_pantalla1[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer0_texto2}}</p>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-column" style="width: 338px;">
+                      <div class="d-flex align-center" style="margin-bottom: 116px;">
+                        <drag-container v-model="layer0_drop3" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer0_drop3.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 3), 'bad-drag' : isBad(item, index, 3)}"><h1 class="font2">{{pastillas_pantalla1[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer0_texto3}}</p>
+                      </div>
+                      <div class="d-flex align-center">
+                        <drag-container v-model="layer0_drop4" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer0_drop4.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 4), 'bad-drag' : isBad(item, index, 4)}"><h1 class="font2">{{pastillas_pantalla1[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer0_texto4}}</p>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-column" style="width: 320px;">
+                      <div class="d-flex align-center" style="margin-bottom: 116px;">
+                        <drag-container v-model="layer0_drop5" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer0_drop5.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 5), 'bad-drag' : isBad(item, index, 5)}"><h1 class="font2">{{pastillas_pantalla1[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer0_texto5}}</p>
+                      </div>
+                      <div class="d-flex align-center">
+                        <drag-container v-model="layer0_drop6" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer0_drop6.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 6), 'bad-drag' : isBad(item, index, 6)}"><h1 class="font2">{{pastillas_pantalla1[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer0_texto6}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <drag-container v-model="layer0_drop7" class="d-flex align-center justify-center" style="width: 325px">
+                    <draggable v-for="item in layer0_drop7.items" :key="item.id" class="mx-4" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag d-flex justify-center align-center pt-0"><h1 class="font2">{{pastillas_pantalla1[item.id]}}</h1></div>
+                    </draggable>
+                  </drag-container>
+
+                </div>
+              </div>
+
+            </v-container>
+
+          </v-window-item>
+          <!-- PANEL1 -->
+          
+          <!-- PANEL2 -->
+          <v-window-item eager>
+            <v-container fluid>
+              <v-row>
+                <v-col cols="12">
+                  <h1 class="font2 color-orden py-10 text-center" style="font-size: var(--orden);">
+                    {{orden2}}
+                  </h1>
+                </v-col>
+              </v-row>
+
+              <div class="d-flex justify-center align-center mt-8">
+                <img src="images/stage.png" style="margin-right: 114px; margin-left: 100px;">
+                <div class="d-flex flex-column align-center">
+                  <div class="d-flex mt-10" style="margin-bottom: 125px; margin-left: 100px;">
+                    <div class="d-flex flex-column" style="width: 320px;">
+                      <div class="d-flex align-center" style="margin-bottom: 116px;">
+                        <drag-container v-model="layer1_drop1" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer1_drop1.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 1), 'bad-drag' : isBad(item, index, 1)}"><h1 class="font2">{{pastillas_pantalla2[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer1_texto1}}</p>
+                      </div>
+                      <div class="d-flex align-center">
+                        <drag-container v-model="layer1_drop2" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer1_drop2.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 2), 'bad-drag' : isBad(item, index, 2)}"><h1 class="font2">{{pastillas_pantalla2[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer1_texto2}}</p>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-column" style="width: 338px;">
+                      <div class="d-flex align-center" style="margin-bottom: 116px;">
+                        <drag-container v-model="layer1_drop3" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer1_drop3.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 3), 'bad-drag' : isBad(item, index, 3)}"><h1 class="font2">{{pastillas_pantalla2[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer1_texto3}}</p>
+                      </div>
+                      <div class="d-flex align-center">
+                        <drag-container v-model="layer1_drop4" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer1_drop4.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 4), 'bad-drag' : isBad(item, index, 4)}"><h1 class="font2">{{pastillas_pantalla2[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer1_texto4}}</p>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-column" style="width: 320px;">
+                      <div class="d-flex align-center" style="margin-bottom: 116px;">
+                        <drag-container v-model="layer1_drop5" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer1_drop5.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 5), 'bad-drag' : isBad(item, index, 5)}"><h1 class="font2">{{pastillas_pantalla2[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer1_texto5}}</p>
+                      </div>
+                      <div class="d-flex align-center">
+                        <drag-container v-model="layer1_drop6" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer1_drop6.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 6), 'bad-drag' : isBad(item, index, 6)}"><h1 class="font2">{{pastillas_pantalla2[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer1_texto6}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <drag-container v-model="layer1_drop7" class="d-flex align-center justify-center" style="width: 325px">
+                    <draggable v-for="item in layer1_drop7.items" :key="item.id" class="mx-4" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag d-flex justify-center align-center pt-0"><h1 class="font2">{{pastillas_pantalla2[item.id]}}</h1></div>
+                    </draggable>
+                  </drag-container>
+
+                </div>
+              </div>
+
+            </v-container>
+
+          </v-window-item>
+          <!-- PANEL2 -->
+          
+          <!-- PANEL3 -->
+          <v-window-item eager>
+            <v-container fluid>
+              <v-row>
+                <v-col cols="12">
+                  <h1 class="font2 color-orden py-10 text-center" style="font-size: var(--orden);">
+                    {{orden3}}
+                  </h1>
+                </v-col>
+              </v-row>
+
+              <div class="d-flex justify-center align-center mt-8">
+                <img src="images/stage.png" style="margin-right: 114px; margin-left: 100px;">
+                <div class="d-flex flex-column align-center">
+                  <div class="d-flex mt-10" style="margin-bottom: 125px; margin-left: 100px;">
+                    <div class="d-flex flex-column" style="width: 320px;">
+                      <div class="d-flex align-center" style="margin-bottom: 116px;">
+                        <drag-container v-model="layer2_drop1" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer2_drop1.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 1), 'bad-drag' : isBad(item, index, 1)}"><h1 class="font2">{{pastillas_pantalla3[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer2_texto1}}</p>
+                      </div>
+                      <div class="d-flex align-center">
+                        <drag-container v-model="layer2_drop2" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer2_drop2.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 2), 'bad-drag' : isBad(item, index, 2)}"><h1 class="font2">{{pastillas_pantalla3[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer2_texto2}}</p>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-column" style="width: 338px;">
+                      <div class="d-flex align-center" style="margin-bottom: 116px;">
+                        <drag-container v-model="layer2_drop3" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer2_drop3.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 3), 'bad-drag' : isBad(item, index, 3)}"><h1 class="font2">{{pastillas_pantalla3[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer2_texto3}}</p>
+                      </div>
+                      <div class="d-flex align-center">
+                        <drag-container v-model="layer2_drop4" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer2_drop4.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 4), 'bad-drag' : isBad(item, index, 4)}"><h1 class="font2">{{pastillas_pantalla3[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer2_texto4}}</p>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-column" style="width: 320px;">
+                      <div class="d-flex align-center" style="margin-bottom: 116px;">
+                        <drag-container v-model="layer2_drop5" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer2_drop5.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 5), 'bad-drag' : isBad(item, index, 5)}"><h1 class="font2">{{pastillas_pantalla3[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer2_texto5}}</p>
+                      </div>
+                      <div class="d-flex align-center">
+                        <drag-container v-model="layer2_drop6" class="drop mr-2">
+                          <draggable v-for="(item, index) in layer2_drop6.items" :key="item.id" :class="{'pointer-events-none': isComprobado()}">
+                            <div class="drag d-flex justify-center align-center pt-0" :class="{'ok-drag' : isOk(item, index, 6), 'bad-drag' : isBad(item, index, 6)}"><h1 class="font2">{{pastillas_pantalla3[item.id]}}</h1></div>
+                          </draggable>
+                        </drag-container>
+                        <p class="font2 mb-0 pb-3 sub1">{{layer2_texto6}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <drag-container v-model="layer2_drop7" class="d-flex align-center justify-center" style="width: 325px">
+                    <draggable v-for="item in layer2_drop7.items" :key="item.id" class="mx-4" :class="{'pointer-events-none': isComprobado()}">
+                      <div class="drag d-flex justify-center align-center pt-0"><h1 class="font2">{{pastillas_pantalla3[item.id]}}</h1></div>
+                    </draggable>
+                  </drag-container>
+
+                </div>
+              </div>
+
+            </v-container>
+
+          </v-window-item>
+          <!-- PANEL3 -->
+
+          <!--audio-lineal v-model="audios.audio1" class="audiobox1" color="#9991f5" horizontal="left" vertical="bottom" @stop="stopAudios"></audio-lineal>
+          <audio-lineal v-model="audios.audio2" color="#9991f5" horizontal="right" vertical="bottom" @stop="stopAudios"></audio-lineal>
+          <audio-lineal v-model="audios.audio3" color="#9991f5" @stop="stopAudios"></audio-lineal-->
+          <!--audio-lineal-principal v-model="audioPrincipal" class="audiobox-principal" color="#9991f5" width="1700px" track-color="#6060a8" text-class="audiobox-text" horizontal="right" vertical="center" @stop="stopAudios" :hide-controller="{layer, layersController, mostrarPantallaFinal}"></audio-lineal-principal-->
+
+          <!-- tipo: primaria-baja / primaria-alta -->
+          <pantalla-final :controller="layersController" tipo="primaria-baja" @return="layer -= 1"></pantalla-final>
+
+        </v-window>
+      </header-nav>
+    </v-app>
+  </div>
+
+  <script src="js/vue.min.js"></script>
+  <script src="js/vuetify.js"></script>
+  <script src="js/smooth-dnd.min.js"></script>
+  <script src="js/vue-smooth-dnd.min.js"></script>
+  
+  <script src="js/createjs.min.js"></script>
+  
+  <script src="mixins/mixins.js"></script>
+  <script src="mixins/config.js"></script>
+  <script src="mixins/TextosGlobales.js"></script>
+
+  <script src="components/HeaderNav.js"></script>
+  <script src="components/DragContainer.js"></script>
+  <script src="components/PantallaFinal.js"></script>
+  <script src="components/AudioLineal.js"></script>
+  <script src="components/AudioLinealPrincipal.js"></script>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      mixins: [mixins, Config, TextosGlobales],
+      components: {
+        'header-nav': HeaderNav,
+        'drag-container': DragContainer,
+        'draggable': VueSmoothDnd.Draggable,
+        'pantalla-final': PantallaFinal,
+        'audio-lineal': AudioLineal,
+        'audio-lineal-principal': AudioLinealPrincipal
+      },
+      created(){
+        //createjs.Sound.registerSound("audios/clic.mp3", "clic")
+      },
+      /*methods: {
+        layer0_restart(){
+          console.log("después de reset - layer 0")
+        },
+        layer0_comprobado(correcto){
+          console.log("después de comprobar - layer 0")
+          console.log("El resultado fue: " + (correcto ? 'ACIERTO' : 'FALLO'))
+        },
+        layer0_solucion(solucion_mostrada){
+          console.log("después de clic en solución - layer 0")
+          console.log("Solución: " + (solucion_mostrada ? 'MOSTRADA' : 'OCULTA'))
+        }
+      },*/
+      data: {
+
+        // Utilizar true si se necesita poner pausa al audio principal cada vez que se cambie la pantalla
+        /*stopAudioPrincipal: true,
+        audioPrincipal: {
+          ruta: "audios/audio2.mp3",
+          id_audio: "audio0",
+          valor: null
+        },
+
+        audios: {
+          audio1: {
+            ruta: "audios/audio2.mp3",
+            id_audio: "audio1",
+            valor: null
+          },
+          audio2: {
+            ruta: "audios/audio3.mp3",
+            id_audio: "audio2",
+            valor: null
+          }
+        },*/
+
+        layers: 3,
+
+        //Mínimo 1 - Máximo 3
+        intentosLayers: 2,
+
+        bloquearComprobar: true,
+        // bloquearLayers: [0],
+
+        infoLayers: [],
+        mostrarPantallaFinal: true,
+
+        // PANEL1
+        layer0_drop1: {
+          nombre: 'layer0_drop1',
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [2],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop2: {
+          nombre: 'layer0_drop2',
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [0],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop3: {
+          nombre: 'layer0_drop3',
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [0],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop4: {
+          nombre: 'layer0_drop4',
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [2],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop5: {
+          nombre: 'layer0_drop5',
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [1],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop6: {
+          nombre: 'layer0_drop6',
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [1],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer0_drop7: {
+          grupo: 'layer0_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'clon',
+          animarDrop: false,
+          items: [
+            {id: 0},
+            {id: 1},
+            {id: 2}
+          ],
+          cantidad: 3
+        },
+        // PANEL1
+        // PANEL2
+        layer1_drop1: {
+          nombre: 'layer1_drop1',
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [1],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop2: {
+          nombre: 'layer1_drop2',
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [2],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop3: {
+          nombre: 'layer1_drop3',
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [1],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop4: {
+          nombre: 'layer1_drop4',
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [0],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop5: {
+          nombre: 'layer1_drop5',
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [0],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop6: {
+          nombre: 'layer1_drop6',
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [2],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer1_drop7: {
+          grupo: 'layer1_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'clon',
+          animarDrop: false,
+          items: [
+            {id: 0},
+            {id: 1},
+            {id: 2}
+          ],
+          cantidad: 3
+        },
+        // PANEL2
+        // PANEL3
+        layer2_drop1: {
+          nombre: 'layer2_drop1',
+          grupo: 'layer2_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [1],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer2_drop2: {
+          nombre: 'layer2_drop2',
+          grupo: 'layer2_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [1],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer2_drop3: {
+          nombre: 'layer2_drop3',
+          grupo: 'layer2_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [2],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer2_drop4: {
+          nombre: 'layer2_drop4',
+          grupo: 'layer2_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [1],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer2_drop5: {
+          nombre: 'layer2_drop5',
+          grupo: 'layer2_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [0],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer2_drop6: {
+          nombre: 'layer2_drop6',
+          grupo: 'layer2_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'normal',
+          animarDrop: false,
+          items: [],
+          cantidad: 1,
+          respuesta: [0],
+          itemsParaHabilitarComprobar: 1,
+          esOpcionIndividual: true
+        },
+        layer2_drop7: {
+          grupo: 'layer2_grupo1',
+          orientacion: 'horizontal',
+          tipo: 'clon',
+          animarDrop: false,
+          items: [
+            {id: 0},
+            {id: 1},
+            {id: 2}
+          ],
+          cantidad: 3
+        }
+        // PANEL3
+
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+/* ESTILOS QUINTO GRADO */
+
+.btn-game-check{
+  /*Botón de comprobar*/
+  min-height: 55px !important;
+  min-width: 250px !important;
+}
+
+.btn-game-pista{
+  min-width: 164px !important;
+}
+
+.btn-game-check h2{
+  /*Fuente dentro del botón comprobar*/
+  font-size: 24px !important;
+  font-weight: 600 !important;
+}
+
+
+/*Sobreescribe las variables en root de las tipografías*/
+:root {
+--f1:'Omnes';
+--f2:'Omnes';
+
+--color-estrella: #ffdd00;
+
+--widthCaja: 880px;
+--paddingCaja: 8px;
+
+--orden: 33px;
+--text: 29px;
+--radius: 10px;
+--box-min-h: 74px;
+--box-max-w: 92px;
+}
+
+/*Se configura el peso de tipografias*/
+.font1{
+  font-weight: 500;
+}
+
+.font2{
+  font-weight: 500;
+}
+
+.b-radius{
+  border-radius: var(--radius) !important;
+}
+
+.btn-sound{
+  border-radius: var(--radius) !important;
+}
+

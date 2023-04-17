@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Santillana2017Bold';
+    src: url('Santillana2017Bold-Bold.eot');
+    src: url('Santillana2017Bold-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Santillana2017Bold-Bold.woff2') format('woff2'),
+        url('Santillana2017Bold-Bold.woff') format('woff'),
+        url('Santillana2017Bold-Bold.ttf') format('truetype'),
+        url('Santillana2017Bold-Bold.svg#Santillana2017Bold-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Omnes';
+    src: url('Omnes-Semibold.eot');
+    src: url('Omnes-Semibold.eot?#iefix') format('embedded-opentype'),
+        url('Omnes-Semibold.woff2') format('woff2'),
+        url('Omnes-Semibold.woff') format('woff'),
+        url('Omnes-Semibold.ttf') format('truetype'),
+        url('Omnes-Semibold.svg#Omnes-Semibold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+

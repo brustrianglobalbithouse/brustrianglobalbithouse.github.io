@@ -1,0 +1,384 @@
+var mixins = {
+    created(){
+        let firstInfo = false
+        //estados: inicio - comprobado
+
+        let aux_lf = (this.intentosLayers ? this.intentosLayers : 3)
+        aux_lf = (aux_lf <= 0 ? 1 : aux_lf)
+        aux_lf = (aux_lf > 3 ? 3 : aux_lf)
+
+        for(let i = 0; i < this.layers; i++){
+            if(this.infoLayers.indexOf(i) === -1){
+
+                let disabledAux = false
+                if(!firstInfo){
+                    if(this.layersController[i - 1] !== undefined && this.layersController[i - 1].tipo === 'info'){
+                        disabledAux = false
+                        firstInfo = true 
+                    }else{
+                        disabledAux = i != 0
+                    }
+                }else{
+                    disabledAux = i != 0
+                }
+
+                this.layersController.push({
+                    tipo: 'actividad',
+                    estado: 'inicio',
+                    correct: true,
+                    intentos: aux_lf,
+                    auxIntentos: 1,
+                    disabled: disabledAux,
+                    canRestart: true,
+                    canShowSolucion: false,
+                    showSolucion: false,
+                    firstSolucion: false,
+                    opciones: null,
+                    correctas: null
+                })
+
+                let exist = true
+                let opciones = 0
+                let count = 1
+                while(exist){
+                    let str_test = `layer${i}_drop${count}`
+                    if(this[str_test] != undefined){
+                        this.layersController[i][str_test] = JSON.parse(JSON.stringify(this[str_test].items))
+                        this.clonItems[i] = []
+                        if(this[str_test].tipo === 'clon'){
+                            this.clonLayers.push({index: i, name: str_test})
+                            if(this.clonItems){
+                                this.clonItems[i] = this.clonItems[i].concat(this[str_test].items)
+                            }
+                        }
+                        if(this[str_test].esOpcionIndividual && this[str_test].esOpcionIndividual === true){
+                            opciones += this[str_test].respuesta.length
+                        }
+                        count++
+                    }else{
+                        exist = false
+                    }
+                }
+                //OBTENER OPCIONES TOTALES
+                this.layersController[i].opciones = opciones
+            }else{
+                this.layersController.push({
+                    tipo: 'info',
+                    estado: 'inicio',
+                    disabled: (!firstInfo ? false : true)
+                })
+            }
+
+            this.lastRespuestas.push({})
+        }
+
+        if(this.mostrarPantallaFinal){
+            this.layersController.push({
+                tipo: 'final',
+                disabled: true
+            })
+        }
+
+        createjs.Sound.registerSound("audios/clic.mp3", "clic")
+        createjs.Sound.registerSound("audios/acierto.mp3", "acierto")
+        createjs.Sound.registerSound("audios/fallo.mp3", "fallo")
+        createjs.Sound.registerSound("audios/aplauso.mp3", "aplauso")
+    },
+    mounted(){
+        
+        window.addEventListener("orientationchange", function(e){
+            setTimeout(()=>{
+                document.getElementById("focus-button").focus();
+            }, 250)
+        })
+        
+    },
+    data(){
+        return {
+            layer: 0,
+            canvasStyle: "",
+            parentStyle: "",
+            layersController: [],
+            clonLayers: [],
+            clonItems: [],
+            lastRespuestas: []
+        }
+    },
+    computed: {
+        isDisabled(){
+            
+            //this.clonLayers.push({index: i, name: str_test})
+            this.clonLayers.forEach(el => {
+                this[el.name].items = JSON.parse(JSON.stringify(this.layersController[el.index][el.name]))
+            })
+            
+            if(this.bloquearComprobar === undefined || this.bloquearComprobar === true){
+                if(this.bloquearLayers === undefined || this.bloquearLayers.indexOf(this.layer) != -1){
+                    let exist = true
+                    let count = 1
+                    let empty = false
+                    while(exist && !empty){
+                        let str_test = `layer${this.layer}_drop${count}`
+                        if(this[str_test] != undefined){
+                            if(this[str_test].itemsParaHabilitarComprobar !== undefined){
+                                if(this[str_test].itemsParaHabilitarComprobar !== this[str_test].items.length){
+                                    empty = true
+                                }
+                            }
+                            count++
+                        }else{
+                            exist = false
+                        }
+                    }
+                    return empty
+                }else{
+                    return false
+                }
+            }else{
+                return false
+            }
+        },
+        isSolucionMostrada(){
+            return this.layersController[this.layer].showSolucion
+        }
+    },
+    methods: {
+        deleteItem(index, val){
+            val.items.splice(index, 1)
+        },
+        isOk(item, index, dropIndex){
+            if(this.isComprobado() && !this.isSolucionMostrada){
+                let str_test = `layer${this.layer}_drop${dropIndex}`
+                return this[str_test] !== undefined && this[str_test].tipo !== 'clon' && this[str_test].respuesta[index] === item.id
+            }else{
+                return false
+            }
+        },
+        isBad(item, index, dropIndex){
+            if(this.isComprobado() && !this.isSolucionMostrada){
+                let str_test = `layer${this.layer}_drop${dropIndex}`
+                return this[str_test] !== undefined && this[str_test].tipo !== 'clon' && this[str_test].respuesta[index] !== item.id
+            }else{
+                return false
+            }
+        },
+        changeStatus(){
+            this.layersController[this.layer].estado = "comprobado"
+            // EVALUAR LAYER ACTUAL
+            let exist = true
+            let count = 1
+            let correctas = 0
+            let bad = false;
+            while(exist){
+                let str_test = `layer${this.layer}_drop${count}`
+                if(this[str_test] != undefined){
+                    if(this[str_test].tipo == 'normal'){
+                        if(this[str_test].items.length === this[str_test].respuesta.length){
+                            this[str_test].respuesta.forEach((el, ind) => {
+                                if(this[str_test].items[ind].id !== el){
+                                    bad = true
+                                }else if(this[str_test].esOpcionIndividual && this[str_test].esOpcionIndividual === true){
+                                    correctas++
+                                }
+                            })
+                        }else{
+                            bad = true
+                        }
+                    }
+                    count++
+                }else{
+                    exist = false
+                }
+            }
+
+            //OBTENER OPCIONES Y CORRECTAS ACTUALES
+            this.layersController[this.layer].correctas = correctas
+
+            //OBTENER RESPUESTAS ACTUALES
+            exist = true
+            count = 1
+            while(exist){
+                let str_test = `layer${this.layer}_drop${count}`
+                if(this[str_test] != undefined){
+                    this.lastRespuestas[this.layer][str_test] = JSON.parse(JSON.stringify(this[str_test].items))
+                    count++
+                }else{
+                    exist = false
+                }
+            }
+
+            this.layersController[this.layer].correct = !bad
+            if(bad){
+                //PERMITIR VER SOLUCIÓN
+                this.layersController[this.layer].canShowSolucion = true
+                if(this.layersController[this.layer].auxIntentos == this.layersController[this.layer].intentos){
+                    this.checkComplete()
+                }
+                createjs.Sound.play('fallo')
+            }else{
+                this.checkComplete()
+                createjs.Sound.play('acierto')
+            }
+
+            if (typeof this[`layer${this.layer}_comprobado`] !== "undefined") {
+                this[`layer${this.layer}_comprobado`](!bad)
+            }
+        },
+        checkComplete(){
+            this.layersController[this.layer].canRestart = false
+            if(this.layersController[this.layer + 1] !== undefined){
+                this.layersController[this.layer + 1].disabled = false
+            }
+
+            let finalizeAct = false
+            if(this.mostrarPantallaFinal){
+                finalizeAct = this.layersController[this.layer + 1] !== undefined && this.layer === this.layersController.length - 2
+            }else{
+                finalizeAct = this.layersController[this.layer + 1] === undefined && this.layer === this.layersController.length - 1
+            }
+
+            if(finalizeAct){
+                //CALCULAR PUNTOS - LOS MISMOS QUE PANTALLA FINAL
+                let lg = 0
+                let aplicarPenalizacion = this.penalizacion && (this.penalizacion.valor == 'porcentaje' || this.penalizacion.valor == 'valor fijo')
+                let finalScore = this.layersController.reduce((total, el) => {
+                    if(el.tipo === 'actividad'){
+                        lg++
+                        let sub_result = el.correctas / el.opciones
+                        if(aplicarPenalizacion){
+                            let intento = this.penalizacion[`intento${el.auxIntentos}`]
+                            if(intento){
+                                sub_result = (this.penalizacion.valor == 'porcentaje' ? sub_result * intento : sub_result - intento)
+                            }
+                        }
+                        return total += (sub_result < 0 ? 0 : sub_result) * 10
+                    }else{
+                        return total
+                    }
+                }, 0) / lg
+                finalScore = (finalScore < 9 ? Math.ceil(finalScore) : Math.floor(finalScore))
+
+                console.log("PUNTOS QUE SE ENVIAN A TRAZA: ", finalScore)
+                parent.postMessage(finalScore, "*")
+            }
+        },
+        restartStatus(){
+            if(this.isComprobado()){
+                this.layersController[this.layer].auxIntentos += 1
+                this.layersController[this.layer].canShowSolucion = false
+            }
+            this.layersController[this.layer].estado = "inicio"
+            
+            let exist = true
+            let count = 1
+            while(exist){
+                let str_test = `layer${this.layer}_drop${count}`
+                if(this[str_test] != undefined){
+                    this[str_test].items = JSON.parse(JSON.stringify(this.layersController[this.layer][str_test]))
+                    count++
+                }else{
+                    exist = false
+                }
+            }
+            
+            if (typeof this[`layer${this.layer}_restart`] !== "undefined") {
+                this[`layer${this.layer}_restart`]()
+            }
+            this.clickSound()
+        },
+        showSolucion(){
+            this.layersController[this.layer].showSolucion = !this.layersController[this.layer].showSolucion
+            
+            let exist = true
+            let count = 1
+
+            if(this.isSolucionMostrada){
+                while(exist){
+                    let str_test = `layer${this.layer}_drop${count}`
+                    if(this[str_test] != undefined){
+                        this[str_test].items = []
+                        count++
+                    }else{
+                        exist = false
+                    }
+                }
+                
+                exist = true
+                count = 1
+                while(exist){
+                    let str_test = `layer${this.layer}_drop${count}`
+                    if(this[str_test] != undefined){
+                        if(this[str_test].tipo === 'clon'){
+                            this[str_test].items = JSON.parse(JSON.stringify(this.layersController[this.layer][str_test]))
+                        }else if(this[str_test].tipo === 'normal'){
+                            this[str_test].respuesta.forEach(el => {
+                                this[str_test].items.push(this.clonItems[this.layer].find(el2 => el2.id == el))
+                            })
+                        }
+                        count++
+                    }else{
+                        exist = false
+                    }
+                }
+            }else{
+                while(exist){
+                    let str_test = `layer${this.layer}_drop${count}`
+                    if(this[str_test] != undefined){
+                        this[str_test].items = JSON.parse(JSON.stringify(this.lastRespuestas[this.layer][str_test]))
+                        count++
+                    }else{
+                        exist = false
+                    }
+                }
+            }
+
+            if(!this.layersController[this.layer].firstSolucion && this.layersController[this.layer].canRestart){
+                this.layersController[this.layer].firstSolucion = true
+
+                this.layersController[this.layer].estado = "comprobado"
+                this.checkComplete()
+            }
+
+            if (typeof this[`layer${this.layer}_solucion`] !== "undefined") {
+                this[`layer${this.layer}_solucion`](this.isSolucionMostrada)
+            }
+
+            this.clickSound()
+        },
+        isComprobado(){
+            return this.layersController[this.layer].estado === "comprobado"
+        },
+        clickSound(){
+            createjs.Sound.play('clic')
+        },
+        stopAudios(fromWatch = false){
+            if(this.audios !== undefined){
+                let exist = true
+                let count = 1
+                while(exist){
+                    let str_test = `audio${count}`
+                    if(this.audios[str_test] != undefined){
+                        this.audios[str_test].valor = true
+                        count++
+                    }else{
+                        exist = false
+                    }
+                }
+            }
+
+            if(!fromWatch || this.stopAudioPrincipal){
+                if(this.audioPrincipal !== undefined){
+                    this.audioPrincipal.valor = true
+                }
+            }
+        }
+    },
+    watch: { 
+        layer(){
+            if(this.layersController[this.layer + 1] !== undefined && this.layersController[this.layer].tipo === 'info'){
+                this.layersController[this.layer + 1].disabled = false
+            }
+            this.stopAudios(true)
+        }
+    }
+}

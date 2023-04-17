@@ -1,0 +1,77 @@
+.twinkle-1-0-5 {
+    animation : twinkle-1-0-5 1s infinite linear;
+}
+@keyframes twinkle-1-0-5 {
+    90% {
+      transform: scale(1.05);
+      opacity: 0.1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.twinkle-1-1 {
+    animation : twinkle-1-1 1s infinite linear;
+}
+@keyframes twinkle-1-1 {
+    90% {
+      transform: scale(1.1);
+      opacity: 0.1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.twinkle-1-2 {
+    animation : twinkle-1-2 1s infinite linear;
+}
+@keyframes twinkle-1-2 {
+    90% {
+      transform: scale(1.2);
+      opacity: 0.1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.twinkle-1-3 {
+    animation : twinkle-1-3 1s infinite linear;
+}
+@keyframes twinkle-1-3 {
+    90% {
+      transform: scale(1.3);
+      opacity: 0.1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.twinkle-1-4 {
+    animation : twinkle-1-4 1s infinite linear;
+}
+@keyframes twinkle-1-4 {
+    90% {
+      transform: scale(1.4);
+      opacity: 0.1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.twinkle-1-5 {
+    animation : twinkle-1-5 1s infinite linear;
+}
+@keyframes twinkle-1-5 {
+    90% {
+      transform: scale(1.5);
+      opacity: 0.1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

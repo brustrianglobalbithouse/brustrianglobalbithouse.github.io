@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link href="css/vuetify.min.css" rel="stylesheet">
+  <link href="css/animate-css.css" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="css/root.css">
+  <link rel="stylesheet" href="css/global-styles.css">
+  <link rel="stylesheet" href="css/local-styles.css">
+  <link rel="stylesheet" href="css/click.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div class="preload" id="preload">
+    <div class="preloader loading">
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+    </div>
+  </div>
+  
+  <div id="app" class="appParent">
+    <v-app>
+      <v-container fluid class="pa-0">
+        <v-row style="height: 100vh;" >
+          <v-col cols="12" class="d-flex flex-column justify-center align-center pa-0">
+
+            <div class="d-flex align-center justify-center" style="position: relative; width: 1530px; height: 933px;">
+
+              <img class="bg-book" src="images/fondo-book.svg" alt="">
+            
+              <flipbook class="flipbook" :pages="pages" :zooms="[1]" :gloss="0.3" :perspective="4000" v-slot="flipbook" @flip-left-end="onFlipLeft" @flip-right-end="onFlipRight" @flip-left-start="onFlipStart" @flip-right-start="onFlipStart">
+
+                <v-btn v-if="flipbook.page > 1" @click="flipbook.flipLeft(), clickSound()" color="#e8b577" depressed fab x-large dark class="flipbook-button flipbook-button-left pa-1"><img src="images/btn-prev.svg" width="64" height="64" alt=""></v-btn>
+                <v-btn v-if="flipbook.page < flipbook.numPages - 1" @click="flipbook.flipRight(), clickSound()" color="#e8b577" depressed fab x-large dark class="flipbook-button flipbook-button-right pa-1"><img src="images/btn-next.svg" width="64" height="64" alt=""></v-btn>
+              
+              </flipbook>
+
+            </div>
+
+            <!-- AUDIO LINEAL -->
+            <div class="d-flex align-center mt-4" style="width: 420px">
+              <v-btn depressed class="btn-sound bg-shadow bg-button mr-4" @click="clickAudio(), clickSound()">
+                <div class="d-flex justify-space-around align-center flex-row">
+                  <svg v-if="paused" width="28" height="28" viewBox="0 0 72 72">
+                    <path fill="#fff" d="M60.09,31.08a5.68,5.68,0,0,1,0,9.84L38.84,53.19,17.6,65.46a5.69,5.69,0,0,1-8.53-4.93V11.47A5.69,5.69,0,0,1,17.6,6.54L38.84,18.81Z"/>
+                  </svg>
+                  <svg v-else width="28" height="28"  viewBox="0 0 72 72">
+                    <rect fill="#fff" x="18.97" y="6.2" width="10.95" height="59.6" rx="5.47"/>
+                    <rect fill="#fff" x="42.08" y="6.2" width="10.95" height="59.6" rx="5.47"/>
+                  </svg>
+                </div>
+              </v-btn>
+              <v-slider hide-details v-model="sliderModel" @mousedown="mouseDownSlider" @mouseup="mouseUpSlider" @input="inputSlider" @end="endSlider" color="#e6e6e6" track-color="#e6e6e6" thumb-color="#e8b577" class="flex-grow-1 audio-track mt-2"></v-slider>
+            </div>
+            <!-- AUDIO LINEAL -->
+
+          </v-col>
+
+          <v-btn class="btn-fullscreen" color="#ffffff" depressed fab x-large dark class="pa-1" @click="goFullScreen()"><img width="38" src="images/btn-full.svg"></v-btn>
+          
+        </v-row>
+      </v-container>
+
+    </v-app>
+  </div>
+
+  <script src="js/vue.min.js"></script>
+  <script src="js/vuetify.js"></script>
+  
+  <script src="js/createjs.min.js"></script>
+  
+  <script src="mixins/mixins.js"></script>
+  <script src="mixins/TextosGlobales.js"></script>
+
+  <script src="js/flipbook.min.js"></script>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      mixins: [mixins, TextosGlobales],
+      created(){
+        //mis audios
+        createjs.Sound.registerSound("audios/audio1.mp3", "audio1")
+        createjs.Sound.registerSound("audios/audio2.mp3", "audio2")
+        createjs.Sound.registerSound("audios/audio4.mp3", "audio4")
+        createjs.Sound.registerSound("audios/audio6.mp3", "audio6")
+        createjs.Sound.registerSound("audios/audio8.mp3", "audio8")
+        createjs.Sound.registerSound("audios/audio9.mp3", "audio9")
+      },
+      data: {
+        pages: [
+          'images/page1.png',
+          'images/page2.png',
+          'images/page3.png',
+          'images/page4.png',
+          'images/page5.png',
+          'images/page6.png',
+          'images/page7.png',
+          'images/page8.png',
+          'images/page9.png',
+          'images/page10.png',
+          'images/page11.png',
+          'images/page12.png'
+        ],
+
+        soundButtons: [
+          'audio1',
+          'audio2',
+          'audio4',
+          'audio6',
+          'audio8',
+          'audio9'
+        ]
+
+        /*
+        EJEMPLO: si la 3er hoja no lleva ningún audio
+        soundButtons: [
+          {audio: 'audio1'},
+          {audio: 'audio2'},
+          null,
+          {audio: 'audio4'},
+          {audio: 'audio5'},
+          {audio: 'audio6'}
+        ]
+        */
+
+      }
+    })
+  </script>
+</body>
+</html>

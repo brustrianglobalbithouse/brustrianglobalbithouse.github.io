@@ -1,0 +1,57 @@
+/* ESTILOS PRIMER GRADO */
+  
+  .itemLayer p{
+    padding-top: 6px;
+  }
+
+  .btn-game-check{
+    /*Botón de comprobar - siguiente - repetir*/
+    border-radius: 18px !important;
+    min-height: 70px !important;
+    min-width: 264px !important;
+  }
+
+  .btn-game-pista{
+    min-width: 180px !important;
+  }
+  
+  .btn-game-check h2{
+    /*Fuente dentro del botón comprobar - siguiente - repetir*/
+    font-size: 28px !important;
+    font-weight: 600 !important;
+  }
+  
+  
+  /*Sobreescribe las variables en root de las tipografías*/
+  :root {
+  /* --f1:'Omnes';
+  --f2:'Omnes'; */
+
+  --color-estrella: #ffdd00;
+
+  --widthCaja: 880px;
+  --paddingCaja: 8px;
+
+  --orden: 46px;
+  --text: 42px;
+  --radius: 20px;
+  --box-min-h: 74px;
+  --box-max-w: 92px;
+  }
+  
+  /*Se configura el peso de tipografias*/
+  .font1{
+    font-weight: 500;
+  }
+  
+  .font2{
+    font-weight: 500;
+  }
+
+  .b-radius{
+    border-radius: var(--radius) !important;
+  }
+  
+  .btn-sound{
+    border-radius: var(--radius) !important;
+  }

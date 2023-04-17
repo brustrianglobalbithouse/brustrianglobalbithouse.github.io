@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link href="css/vuetify.min.css" rel="stylesheet">
+  <link href="css/animate-css.css" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="css/root.css">
+  <link rel="stylesheet" href="css/global-styles.css">
+  <link rel="stylesheet" href="css/local-styles.css">
+  <link rel="stylesheet" href="css/click.css">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body class="smooth-dnd-no-user-select smooth-dnd-disable-touch-action ready sticky">
+  <div class="preload" id="preload">
+    <div class="preloader loading">
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+    </div>
+  </div>
+  
+  <div id="app" class="appParent">
+    <v-app>
+
+      <transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <div v-show="pantallaInicial" class="full-container-absolute">
+          <img src="images/bg-inicial.svg" width="1920" height="1080" style="position: absolute; left: 0; top: 0">
+          
+          <v-hover v-slot="{hover}">
+            <img class="btn-nivel" v-if="hover || nivelActual.nivel === 1" src="images/btn-nivel1-hover.svg" style="bottom: 250px" @click="escogerNivel(1)">
+            <img class="btn-nivel" v-else src="images/btn-nivel1.svg" style="bottom: 250px">
+          </v-hover>
+          <v-hover v-slot="{hover}">
+            <img class="btn-nivel" v-if="hover || nivelActual.nivel === 2" src="images/btn-nivel2-hover.svg" style="bottom: 140px" @click="escogerNivel(2)">
+            <img class="btn-nivel" v-else src="images/btn-nivel2.svg" style="bottom: 140px">
+          </v-hover>
+          <v-hover v-slot="{hover}">
+            <img class="btn-nivel" v-if="hover || nivelActual.nivel === 3" src="images/btn-nivel3-hover.svg" style="bottom: 30px" @click="escogerNivel(3)">
+            <img class="btn-nivel" v-else src="images/btn-nivel3.svg" style="bottom: 30px">
+          </v-hover>
+          
+          <v-hover v-slot="{hover}">
+            <img class="btn-start" v-if="hover" src="images/btn-start-hover.svg" @click="empezarJuego()">
+            <img class="btn-start" v-else src="images/btn-start.svg">
+          </v-hover>
+
+        </div>
+      </transition>
+
+      <transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" @before-enter="showModalErrores()">
+        <div v-if="!pantallaInicial" class="full-container-absolute">
+          <img :src="`images/${nivelActual.bg}`" class="bg-nivel">
+
+          <div class="d-flex ficha-gris" :class="`rotate-${fichaInicial.posicion}`" :style="`top: ${fichaInicial.top}px; left: ${fichaInicial.left}px`">
+            <div class="drop">
+              <div class="d-flex align-center justify-space-between drag-ficha pt-1 px-1 pointer-events-none" style="background-image: url(images/ficha.png)">
+                <img :src="`images/${primerFicha.imagen}`" class="mr-2">
+                <p class="font2 mb-0 pb-3" :style="`font-size: ${primerFicha.fontSize}px`">{{primerFicha.texto}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div v-for="(ficha, index) in fichasIzquierda" class="d-flex ficha-gris" :class="`rotate-${ficha.posicion}`" :style="`top: ${ficha.top}px; left: ${ficha.left}px`">
+            <drop v-model="dropsIzquierda[index]" :ficha="ficha" :last-ficha="lastFichaIzquierda" grupo="izquierda" v-slot="{item}" content-class="drop" @fallo="onFallo($event)" @acierto="onAcierto($event, 'izquierda')">
+              <template v-slot:back>
+                <img class="position: absolute; left: 0; top: 0" src="images/ficha-gris.png">
+              </template>
+              <template v-slot:drag="{item}">
+                <draggable v-if="item !== null" :key="item.id" class="pointer-events-none">
+                  <div class="d-flex align-center justify-space-between drag-ficha pt-1 px-1" style="background-image: url(images/ficha.png)">
+                    <img :src="`images/${item.imagen}`" class="mr-2">
+                    <p class="font2 mb-0 pb-3" :style="`font-size: ${item.fontSize}px`">{{item.texto}}</p>
+                  </div>
+                </draggable>
+              </template>
+            </drop>
+          </div>
+
+          <div v-for="(ficha, index) in fichasDerecha" class="d-flex ficha-gris" :class="`rotate-${ficha.posicion}`" :style="`top: ${ficha.top}px; left: ${ficha.left}px`">
+            <drop v-model="dropsDerecha[index]" :ficha="ficha" :last-ficha="lastFichaDerecha" grupo="derecha" v-slot="{item}" content-class="drop" @fallo="onFallo($event)" @acierto="onAcierto($event, 'derecha')">
+              <template v-slot:back>
+                <img class="position: absolute; left: 0; top: 0" src="images/ficha-gris.png">
+              </template>
+              <template v-slot:drag="{item}">
+                <draggable v-if="item !== null" :key="item.id" class="pointer-events-none">
+                  <div class="d-flex align-center justify-space-between drag-ficha pt-1 px-1" style="background-image: url(images/ficha.png)">
+                    <img :src="`images/${item.imagen}`" class="mr-2">
+                    <p class="font2 mb-0 pb-3" :style="`font-size: ${item.fontSize}px`">{{item.texto}}</p>
+                  </div>
+                </draggable>
+              </template>
+            </drop>
+          </div>
+
+          <div class="d-flex align-center justify-center opciones-container">
+            <opciones-container v-model="opciones" orientacion="horizontal" class="align-center justify-center" @check="checkFinishGame()">
+              <draggable v-for="item in opciones" :key="item.id">
+                <div class="d-flex align-center justify-space-between drag-ficha mx-3 pt-1 px-1" style="background-image: url(images/ficha.png)">
+                  <img :src="`images/${item.imagen}`" class="mr-2">
+                  <p class="font2 mb-0 pb-3" :style="`font-size: ${item.fontSize}px`">{{item.texto}}</p>
+                </div>
+              </draggable>
+            </opciones-container>
+          </div>
+
+          <v-btn class="back-btn" width="92" height="92" icon :ripple="false" dark color="white" @click="reiniciarJuego()">
+            <img src="images/btn-back.svg" width="92" height="92">
+          </v-btn>
+
+          <v-btn class="home-btn" width="92" height="92" icon :ripple="false" dark color="white" @click="pantallaInicial = true">
+            <img src="images/btn-home.svg" width="92" height="92">
+          </v-btn>
+
+        </div>
+      </transition>
+
+      <v-btn class="fullscreen-btn" width="92" height="92" icon :ripple="false" dark color="white" @click="goFullScreen()">
+        <img src="images/btn-fullscreen.svg" width="92" height="92">
+      </v-btn>
+
+      <v-dialog v-model="modal_fail" width="600" overlay-opacity="0.50" content-class="modal-fail">
+        <img src="images/modal_fail.svg" width="600" height="330">
+        <div class="d-flex align-center justify-center modal-fail-container">
+          <p class="font2 mb-0 text-center" style="font-size: 38px; line-height: 44px; color: black;" v-html="mensaje_fail_modal"></p>
+          <img src="images/btn-close-modal.svg" class="btn-close-modal" @click="modal_fail = false">
+        </div>
+      </v-dialog>
+
+      <v-dialog v-model="modal_next" width="800" overlay-opacity="0.50" content-class="modal-fin" @keydown.esc="empezarJuego()" @click:outside="empezarJuego()">
+        <img src="images/confeti.svg" class="confeti">
+        <img src="images/modal-success.svg" width="800" height="486">
+        <div class="d-flex align-center justify-center modal-fin-container">
+          <p class="font2 mb-0 mr-12 text-center" style="font-size: 38px; line-height: 44px; color: black;" v-html="mensaje_fin_nivel"></p>
+
+          <img v-if="nivelActual.nivel === 1" src="images/btn-nivel2-modal.svg" class="btn-modal" @click="modal_next = false, escogerNivel(2), reiniciarJuego()">
+          <img v-if="nivelActual.nivel === 2" src="images/btn-nivel3-modal.svg" class="btn-modal" @click="modal_next = false, escogerNivel(3), reiniciarJuego()">
+          <img v-if="nivelActual.nivel === 3" src="images/btn-start-modal.svg" class="btn-modal" @click="modal_next = false, escogerNivel(1), reiniciarJuego()">
+
+          <img src="images/btn-close-modal.svg" class="btn-close-modal" @click="modal_next = false, empezarJuego()">
+        </div>
+      </v-dialog>
+
+      <v-dialog v-model="modal_fin" width="800" overlay-opacity="0.50" content-class="modal-fin" @keydown.esc="finalizarJuego()" @click:outside="finalizarJuego()">
+        <img src="images/confeti.svg" class="confeti">
+        <img src="images/modal-success.svg" width="800" height="486">
+        <div class="d-flex align-center justify-center modal-fin-container">
+          <div class="d-flex" style="position: relative;">
+            <img src="images/trofeo.svg" width="461.25" height="142.5">
+            <div class="d-flex align-center justify-center full-container-absolute">
+              <p class="font2 mb-0 mr-12 text-center" style="font-size: 38px; line-height: 44px; color: black;" v-html="mensaje_final"></p>
+            </div>
+          </div>
+          <img src="images/btn-close-modal.svg" class="btn-close-modal" @click="modal_fin = false, finalizarJuego()">
+        </div>
+      </v-dialog>
+
+    </v-app>
+  </div>
+
+  <script src="js/vue.min.js"></script>
+  <script src="js/vuetify.js"></script>
+  <script src="js/smooth-dnd.min.js"></script>
+  <script src="js/vue-smooth-dnd.min.js"></script>
+  
+  <script src="js/createjs.min.js"></script>
+  
+  <script src="mixins/mixins.js"></script>
+  <script src="mixins/TextosGlobales.js"></script>
+
+  <script src="components/OpcionesContainer.js"></script>
+  <script src="components/Drop.js"></script>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      mixins: [mixins, TextosGlobales],
+      components: {
+        'opciones-container': OpcionesContainer,
+        'drop': Drop,
+        'draggable': VueSmoothDnd.Draggable
+      },
+      data: {
+
+        bg_niveles: ['bg-nivel1.svg', 'bg-nivel2.svg', 'bg-nivel3.svg'],
+        errores_niveles: [3, 2, 1],
+        opciones_niveles: [2, 3, 4],
+        
+        fichas: [
+          {id: 'ardilla', imagen: 'ardilla.png', texto: 'texto_ardilla', correctoIzquierda: 'avion', correctoDerecha: 'guitarra', fontSize: 47},
+          {id: 'antifaz', imagen: 'antifaz.png', texto: 'texto_antifaz', correctoIzquierda: 'mano', correctoDerecha: 'avion', fontSize: 60},
+          {id: 'avion', imagen: 'avion.png', texto: 'texto_avion', correctoIzquierda: 'antifaz', correctoDerecha: 'ardilla', fontSize: 60},
+          {id: 'botas', imagen: 'botas.png', texto: 'texto_botas', correctoIzquierda: 'guitarra', correctoDerecha: 'gusano', fontSize: 60},
+          {id: 'burro', imagen: 'burro.png', texto: 'texto_burro', correctoIzquierda: 'queso', correctoDerecha: 'seta', fontSize: 60},
+          {id: 'casa', imagen: 'casa.png', texto: 'texto_casa', correctoIzquierda: 'lluvia', correctoDerecha: 'estrella', fontSize: 60},
+          {id: 'cerezas', imagen: 'cerezas.png', texto: 'texto_cerezas', correctoIzquierda: 'helado', correctoDerecha: 'xilofono', fontSize: 60},
+          {id: 'chupete', imagen: 'chupete.png', texto: 'texto_chupete', correctoIzquierda: 'xilofono', correctoDerecha: 'jarra', fontSize: 60},
+          {id: 'coche', imagen: 'coche.png', texto: 'texto_coche', correctoIzquierda: 'zapato', correctoDerecha: 'queso', fontSize: 47},
+          {id: 'cubo', imagen: 'cubo.png', texto: 'texto_cubo', correctoIzquierda: 'gato', correctoDerecha: 'vaso', fontSize: 60},
+          {id: 'estrella', imagen: 'estrella.png', texto: 'texto_estrella', correctoIzquierda: 'casa', correctoDerecha: 'yoyo', fontSize: 60},
+          {id: 'gato', imagen: 'gato.png', texto: 'texto_gato', correctoIzquierda: 'naranja', correctoDerecha: 'cubo', fontSize: 60},
+          {id: 'genio', imagen: 'genio.png', texto: 'texto_genio', correctoIzquierda: 'raqueta', correctoDerecha: 'isla', fontSize: 60},
+          {id: 'guitarra', imagen: 'guitarra.png', texto: 'texto_guitarra', correctoIzquierda: 'ardilla', correctoDerecha: 'botas', fontSize: 60},
+          {id: 'gusano', imagen: 'gusano.png', texto: 'texto_gusano', correctoIzquierda: 'botas', correctoDerecha: 'lluvia', fontSize: 47},
+          {id: 'helado', imagen: 'helado.png', texto: 'texto_helado', correctoIzquierda: 'isla', correctoDerecha: 'cerezas', fontSize: 60},
+          {id: 'isla', imagen: 'isla.png', texto: 'texto_isla', correctoIzquierda: 'genio', correctoDerecha: 'helado', fontSize: 60},
+          {id: 'jarra', imagen: 'jarra.png', texto: 'texto_jarra', correctoIzquierda: 'chupete', correctoDerecha: 'mano', fontSize: 51},
+          {id: 'lluvia', imagen: 'lluvia.png', texto: 'texto_lluvia', correctoIzquierda: 'gusano', correctoDerecha: 'casa', fontSize: 60},
+          {id: 'mano', imagen: 'mano.png', texto: 'texto_mano', correctoIzquierda: 'jarra', correctoDerecha: 'antifaz', fontSize: 60},
+          {id: 'naranja', imagen: 'naranja.png', texto: 'texto_naranja', correctoIzquierda: 'yoyo', correctoDerecha: 'gato', fontSize: 60},
+          {id: 'queso', imagen: 'queso.png', texto: 'texto_queso', correctoIzquierda: 'coche', correctoDerecha: 'burro', fontSize: 60},
+          {id: 'raqueta', imagen: 'raqueta.png', texto: 'texto_raqueta', correctoIzquierda: 'seta', correctoDerecha: 'genio', fontSize: 60},
+          {id: 'seta', imagen: 'seta.png', texto: 'texto_seta', correctoIzquierda: 'burro', correctoDerecha: 'raqueta', fontSize: 60},
+          {id: 'vaso', imagen: 'vaso.png', texto: 'texto_vaso', correctoIzquierda: 'cubo', correctoDerecha: 'zapato', fontSize: 60},
+          {id: 'xilofono', imagen: 'xilofono.png', texto: 'texto_xilofono', correctoIzquierda: 'cerezas', correctoDerecha: 'chupete', fontSize: 47},
+          {id: 'yoyo', imagen: 'yoyo.png', texto: 'texto_yoyo', correctoIzquierda: 'estrella', correctoDerecha: 'naranja', fontSize: 60},
+          {id: 'zapato', imagen: 'zapato.png', texto: 'texto_zapato', correctoIzquierda: 'vaso', correctoDerecha: 'coche', fontSize: 60}
+        ],
+
+        //posiciones - top, bottom, left, right
+        fichaInicial: {top: 40, left: 756, posicion: 'top'},
+
+        fichasIzquierda: [
+          {top: 40, left: 658, posicion: 'left'},
+          {top: 228, left: 658, posicion: 'left'},
+          {top: 416, left: 658, posicion: 'left'},
+          {top: 604, left: 568, posicion: 'top'},
+          {top: 702, left: 568, posicion: 'left'},
+          {top: 792, left: 380, posicion: 'top'},
+          {top: 604, left: 380, posicion: 'right'},
+          {top: 416, left: 380, posicion: 'right'},
+          {top: 228, left: 380, posicion: 'right'},
+          {top: 130, left: 290, posicion: 'top'},
+          {top: 130, left: 102, posicion: 'top'},
+          {top: 228, left: 102, posicion: 'left'},
+          //{top: 416, left: 102, posicion: 'left'},
+          //{top: 604, left: 102, posicion: 'left'},
+          //{top: 792, left: 102, posicion: 'bottom'}
+        ],
+
+        fichasDerecha: [
+          {top: 138, left: 846, posicion: 'right'},
+          {top: 326, left: 846, posicion: 'right'},
+          {top: 514, left: 846, posicion: 'top'},
+          {top: 612, left: 936, posicion: 'right'},
+          {top: 800, left: 936, posicion: 'top'},
+          {top: 800, left: 1124, posicion: 'top'},
+          {top: 612, left: 1214, posicion: 'left'},
+          {top: 424, left: 1214, posicion: 'left'},
+          {top: 236, left: 1214, posicion: 'left'},
+          {top: 48, left: 1214, posicion: 'left'},
+          {top: 48, left: 1312, posicion: 'top'},
+          {top: 48, left: 1500, posicion: 'right'},
+          {top: 236, left: 1500, posicion: 'right'},
+          {top: 424, left: 1500, posicion: 'right'},
+          {top: 612, left: 1500, posicion: 'top'}
+        ]
+
+      }
+    })
+  </script>
+</body>
+</html>

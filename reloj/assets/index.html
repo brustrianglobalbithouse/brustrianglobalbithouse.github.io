@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="css/vuetify.min.css" rel="stylesheet">
+  <link href="css/animate-css.css" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="css/root.css">
+  <link rel="stylesheet" href="css/global-styles.css">
+  <link rel="stylesheet" href="css/local-styles.css">
+  <link rel="stylesheet" href="css/click.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div class="preload" id="preload">
+    <div class="preloader loading">
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+      <span class="slice"></span>
+    </div>
+  </div>
+  
+  <div id="app" class="appParent">
+    <v-app>
+      <header-nav :layer="layer" :layers="layers" :controller="layersController" :disabled-button="isDisabled" :mostrar-pantalla-final="mostrarPantallaFinal" @change-layer="layer = $event, clickSound()" @call-restart="restartStatus()" @change-estado="changeStatus()">
+        <v-window class="window-container" v-model="layer" style="width: 100%" :touchless="true">
+
+          <!-- PANEL1 -->
+          <v-window-item eager>
+
+            <v-row>
+              <v-col cols="12">
+                <h1 class="font2 color-orden py-10 text-center" style="font-size: 50px;">
+                  {{orden1}}
+                </h1>
+              </v-col>
+            </v-row>
+
+            <div class="d-flex flex-column align-center justify-center mt-4">
+
+              <reloj v-model="layer0_seleccion1" :class="{'ok-container' : isOk(layer0_seleccion1), 'bad-container' : isBad(layer0_seleccion1), 'pointer-events-none' : isComprobado()}">
+                <template v-slot:reloj>
+                  <img src="images/reloj.svg" width="449" height="449">
+                </template>
+                <template v-slot:hora>
+                  <img src="images/flecha-hora.svg" width="28" height="112">
+                </template>
+                <template v-slot:minuto>
+                  <img src="images/flecha-minuto.svg" width="28" height="133">
+                </template>
+                <template v-slot:estado="{ agujaHora, toggle }">
+                  <div class="d-flex align-center" style="cursor: pointer;" @click="toggle()" :class="{'pointer-events-none' : isComprobado()}">
+                    <div class="toggle-circle mr-3" :class="{'toggle-circle-minuto' : !agujaHora}"></div>
+                    <h3 class="font2 texto-toggle">{{(agujaHora ? texto_horas : texto_minutos)}}</h3>
+                  </div>
+                </template>
+              </reloj>
+
+              <h3 class="font2 subtitulo mt-7">{{layer0_texto1}}</h3>
+              <h3 class="font2 subtitulo mt-3">{{layer0_seleccion1.valor}}</h3>
+
+            </div>
+
+          </v-window-item>
+          <!-- PANEL1 -->
+          
+          <!-- PANEL2 -->
+          <v-window-item eager>
+
+            <v-row>
+              <v-col cols="12">
+                <h1 class="font2 color-orden py-10 text-center" style="font-size: 50px;">
+                  {{orden2}}
+                </h1>
+              </v-col>
+            </v-row>
+
+            <div class="d-flex flex-column align-center justify-center mt-4">
+
+              <reloj v-model="layer1_seleccion1" :class="{'ok-container' : isOk(layer1_seleccion1), 'bad-container' : isBad(layer1_seleccion1), 'pointer-events-none' : isComprobado()}">
+                <template v-slot:reloj>
+                  <img src="images/reloj.svg" width="449" height="449">
+                </template>
+                <template v-slot:hora>
+                  <img src="images/flecha-hora.svg" width="28" height="112">
+                </template>
+                <template v-slot:minuto>
+                  <img src="images/flecha-minuto.svg" width="28" height="133">
+                </template>
+                <template v-slot:estado="{ agujaHora, toggle }">
+                  <div class="d-flex align-center" style="cursor: pointer;" @click="toggle()" :class="{'pointer-events-none' : isComprobado()}">
+                    <div class="toggle-circle mr-3" :class="{'toggle-circle-minuto' : !agujaHora}"></div>
+                    <h3 class="font2 texto-toggle">{{(agujaHora ? texto_horas : texto_minutos)}}</h3>
+                  </div>
+                </template>
+              </reloj>
+
+              <h3 class="font2 subtitulo mt-7">{{layer1_texto1}}</h3>
+              <h3 class="font2 subtitulo mt-3">{{layer1_seleccion1.valor}}</h3>
+
+            </div>
+
+          </v-window-item>
+          <!-- PANEL2 -->
+          
+          <!-- PANEL3 -->
+          <v-window-item eager>
+
+            <v-row>
+              <v-col cols="12">
+                <h1 class="font2 color-orden py-10 text-center" style="font-size: 50px;">
+                  {{orden3}}
+                </h1>
+              </v-col>
+            </v-row>
+
+            <div class="d-flex flex-column align-center justify-center mt-4">
+
+              <reloj v-model="layer2_seleccion1" :class="{'ok-container' : isOk(layer2_seleccion1), 'bad-container' : isBad(layer2_seleccion1), 'pointer-events-none' : isComprobado()}">
+                <template v-slot:reloj>
+                  <img src="images/reloj.svg" width="449" height="449">
+                </template>
+                <template v-slot:hora>
+                  <img src="images/flecha-hora.svg" width="28" height="112">
+                </template>
+                <template v-slot:minuto>
+                  <img src="images/flecha-minuto.svg" width="28" height="133">
+                </template>
+                <template v-slot:estado="{ agujaHora, toggle }">
+                  <div class="d-flex align-center" style="cursor: pointer;" @click="toggle()" :class="{'pointer-events-none' : isComprobado()}">
+                    <div class="toggle-circle mr-3" :class="{'toggle-circle-minuto' : !agujaHora}"></div>
+                    <h3 class="font2 texto-toggle">{{(agujaHora ? texto_horas : texto_minutos)}}</h3>
+                  </div>
+                </template>
+              </reloj>
+
+              <h3 class="font2 subtitulo mt-7">{{layer2_texto1}}</h3>
+              <h3 class="font2 subtitulo mt-3">{{layer2_seleccion1.valor}}</h3>
+
+            </div>
+
+          </v-window-item>
+          <!-- PANEL3 -->
+          
+          <!-- PANEL4 -->
+          <v-window-item eager>
+
+            <v-row>
+              <v-col cols="12">
+                <h1 class="font2 color-orden py-10 text-center" style="font-size: 50px;">
+                  {{orden4}}
+                </h1>
+              </v-col>
+            </v-row>
+
+            <div class="d-flex flex-column align-center justify-center mt-4">
+
+              <reloj v-model="layer3_seleccion1" :class="{'ok-container' : isOk(layer3_seleccion1), 'bad-container' : isBad(layer3_seleccion1), 'pointer-events-none' : isComprobado()}">
+                <template v-slot:reloj>
+                  <img src="images/reloj.svg" width="449" height="449">
+                </template>
+                <template v-slot:hora>
+                  <img src="images/flecha-hora.svg" width="28" height="112">
+                </template>
+                <template v-slot:minuto>
+                  <img src="images/flecha-minuto.svg" width="28" height="133">
+                </template>
+                <template v-slot:estado="{ agujaHora, toggle }">
+                  <div class="d-flex align-center" style="cursor: pointer;" @click="toggle()" :class="{'pointer-events-none' : isComprobado()}">
+                    <div class="toggle-circle mr-3" :class="{'toggle-circle-minuto' : !agujaHora}"></div>
+                    <h3 class="font2 texto-toggle">{{(agujaHora ? texto_horas : texto_minutos)}}</h3>
+                  </div>
+                </template>
+              </reloj>
+
+              <h3 class="font2 subtitulo mt-7">{{layer3_texto1}}</h3>
+              <h3 class="font2 subtitulo mt-3">{{layer3_seleccion1.valor}}</h3>
+
+            </div>
+
+          </v-window-item>
+          <!-- PANEL4 -->
+
+
+          <!-- tipo: primaria-baja / primaria-alta -->
+          <pantalla-final :controller="layersController" tipo="primaria-baja" @return="layer -= 1"></pantalla-final>
+
+        </v-window>
+      </header-nav>
+    </v-app>
+  </div>
+
+  <script src="js/vue.min.js"></script>
+  <script src="js/vuetify.js"></script>
+  <script src="js/smooth-dnd.min.js"></script>
+  <script src="js/vue-smooth-dnd.min.js"></script>
+  
+  <script src="js/createjs.min.js"></script>
+  
+  <script src="mixins/mixins.js"></script>
+  <script src="mixins/TextosGlobales.js"></script>
+
+  <script src="components/HeaderNav.js"></script>
+  <script src="components/Reloj.js"></script>
+  <script src="components/PantallaFinal.js"></script>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      mixins: [mixins, TextosGlobales],
+      components: {
+        'header-nav': HeaderNav,
+        'reloj': Reloj,
+        'pantalla-final': PantallaFinal
+      },
+      created(){
+        //createjs.Sound.registerSound("audios/clic.mp3", "clic")
+      },
+      methods: {
+        layer0_restart(){
+          
+        },
+        layer0_comprobado(correcto){
+          
+        }
+      },
+      data: {
+        layers: 4,
+
+        //Mínimo 1 - Máximo 3
+        intentosLayers: [3, 3, 3, 3],
+
+        bloquearComprobar: true,
+        // bloquearLayers: [0],
+
+        infoLayers: [],
+        mostrarPantallaFinal: true,
+
+        layer0_seleccion1: {
+          valor: null,
+          valorInicial: 'layer0_seleccion1_valorInicial',
+          respuesta: 'layer0_seleccion1_respuesta',
+          agujaActual: 'hora', // 'hora' - 'minuto'
+          minutosValen5: true
+          //mostrarAgujaMinutos: true,
+          //mostrarAgujaHoras: true
+        },
+        
+        layer1_seleccion1: {
+          valor: null,
+          valorInicial: 'layer1_seleccion1_valorInicial',
+          respuesta: 'layer1_seleccion1_respuesta',
+          agujaActual: 'hora', // 'hora' - 'minuto'
+          minutosValen5: true
+        },
+        
+        layer2_seleccion1: {
+          valor: null,
+          valorInicial: 'layer2_seleccion1_valorInicial',
+          respuesta: 'layer2_seleccion1_respuesta',
+          agujaActual: 'hora', // 'hora' - 'minuto'
+          minutosValen5: true
+        },
+        
+        layer3_seleccion1: {
+          valor: null,
+          valorInicial: 'layer3_seleccion1_valorInicial',
+          respuesta: 'layer3_seleccion1_respuesta',
+          agujaActual: 'hora', // 'hora' - 'minuto'
+          minutosValen5: true
+        }
+
+      }
+    })
+  </script>
+</body>
+</html>
